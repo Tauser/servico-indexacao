@@ -1,0 +1,123 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"normalizer": {
+        		"my_normalizer": {
+          			"type": "custom",
+          			"filter": ["lowercase"]
+        		}
+      		},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+				"my_stop": {
+					"type": "stop",
+					"stopwords": "_brazilian_"
+				}
+			}
+		}
+	},
+	"mappings": {
+		"proposicoes": {
+			"properties": {
+				"ementa": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"titulo": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"indexacao": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"inteiroTeor": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"temaPortal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"raw": {
+							"type": "keyword"
+						}
+					}
+				},
+				"anoApresentacao": {
+					"type": "integer"
+				},
+				"emTramitacao": {
+					"type": "keyword"
+				},
+				"tramitacoes": {
+					"type": "nested",
+					"properties": {
+						"datTramitacao": {
+							"type": "date"
+						},
+						"textoTramitacao": {
+							"type": "text",
+							"analyzer": "my_analyzer"
+						}
+					}
+				},
+				"dataOrdenacao": {
+					"type": "date"
+				},
+				"autores": {
+					"type": "nested",
+					"include_in_parent" : true,	
+					"properties": {
+						"nome": {
+							"type": "text",
+							"analyzer": "my_analyzer",
+							"fields": {
+								"keyword": {
+									"type": "keyword"
+								},
+								"normalize": {
+									"type": "keyword",
+									"normalizer": "my_normalizer"
+								}
+							}
+						}
+					}
+				},
+				"relatores": {
+					"type": "nested",
+					"include_in_parent" : true,
+					"properties": {
+						"nomeRelator": {
+							"type": "text",
+							"analyzer": "my_analyzer",
+							"fields": {
+								"keyword": {
+									"type": "keyword"
+								},
+								"normalize": {
+									"type": "keyword",
+									"normalizer": "my_normalizer"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

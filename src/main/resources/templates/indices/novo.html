@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}" lang="pt-BR">
+<head>
+	<title>Novo Índice</title>
+</head>
+<body>
+	<th:block layout:fragment="conteudo">
+		<div class="row">
+			<div class="col-sm-6">
+				<!--/*@thymesVar id="indice" type="br.leg.camara.indexacao.adaptadores.mvc.FormularioIndice"*/-->
+				<form method="post" th:action="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).NOVO_INDICE}}" th:object="${indice}">
+
+					<div class="form-group">						
+						<input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Nome do índice" aria-label="Nome do índice" required/>
+					</div>
+
+					<div class="form-group">						
+						<textarea id="configuracoes" th:field="*{configuracoes}" rows="20" class="form-control" aria-describedby="helpConfiguracoes" placeholder="Configurações" aria-label="Configurações">
+						</textarea>
+						<small id="helpConfiguracoes" class="form-text text-muted">
+							Json com as configurações do índice. Para mais detalhes, consulte a
+							<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html" target="_blank">documentação do Elastic Search</a>
+						</small>
+					</div>
+
+					<a th:href="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).LISTAR_INDICES}}" class="btn btn-secondary">Cancelar</a>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</form>
+			</div>
+		</div>
+	</th:block>
+
+</body>
+</html>

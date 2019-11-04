@@ -1,0 +1,46 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+        			"my_stop": {
+                    	"type":       "stop",
+                    	"stopwords":  "_brazilian_"
+                	}
+			}
+		}
+	},
+	"mappings": {
+		"pessoas": {
+			"dynamic_templates": [{
+				"set_analyzer_string_fields": {
+					"match_mapping_type": "string",
+					"match": "*",
+					"mapping": {
+						"type": "text",
+						"analyzer": "my_analyzer",
+						"fields": {
+							"keyword": {
+								"type": "keyword"
+							}
+						}
+					}
+				}
+			}]
+		}
+	}
+}

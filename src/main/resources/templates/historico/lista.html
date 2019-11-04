@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}" lang="pt-BR">
+<head>
+	<title>Execuções encerradas</title>
+</head>
+<body>
+	<th:block layout:fragment="conteudo">
+		<!--/*@thymesVar id="data" type="java.time.LocalDate"*/-->
+		<div class="row">			
+			<div class="col-sm-6">
+				<h2>Execuções do dia <th:block th:text="${#temporals.format(data, 'dd/MM/yyyy')}">dd/MM/yyyy</th:block></h2>
+			</div>
+			<div class="col-sm-6">
+				<div class="float-right">
+					<!--/*@thymesVar id="urlDataAnterior" type="java.lang.String"*/-->
+					<!--/*@thymesVar id="urlDataSeguinte" type="java.lang.String"*/-->
+					<a th:href="@{${urlDataAnterior}}" role="button" class="btn btn-outline-secondary">Dia anterior</a>
+					<a th:if="${urlDataSeguinte}" th:href="@{${urlDataSeguinte}}" role="button" class="btn btn-outline-secondary">Dia seguinte</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<!--/*@thymesVar id="historico" type="java.util.List<br.leg.camara.indexacao.aplicacao.execucao.StatusExecucao>"*/-->
+			<div class="col" th:if="${#lists.isEmpty(historico)}">
+				<h5>Sem execuções neste dia.</h5>
+			</div>
+			<div class="col" th:unless="${#lists.isEmpty(historico)}">				
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<caption>Jobs encerrados no dia <th:block th:text="${#temporals.format(data, 'dd/MM/yyyy')}">dd/MM/yyyy</th:block></caption>
+						<thead>
+							<tr>
+								<th>Nome do job</th>
+								<th>Início</th>
+								<th>Término</th>
+								<th>Num. docs</th>
+								<th>Num. lidos</th>
+								<th>Num. indexados</th>
+								<th>Parâmetros</th>
+								<th>Erros</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="status, dadosLinha : ${historico}">
+								<td>
+									<th:block th:text="${status.getNomeJob()}">Nome do Job</th:block>
+
+									<div th:if="${status.aindaEmExecucao()}" class="spinner-border spinner-border-sm text-primary" role="status">
+										<span class="sr-only">Em execução...</span>
+									</div>
+								</td>
+								<td th:text="${T(br.leg.camara.indexacao.aplicacao.util.TimeUtils).formatarTimestamp(status.getTimestampInicio())}"></td>
+								<td th:text="${T(br.leg.camara.indexacao.aplicacao.util.TimeUtils).formatarTimestamp(status.getTimestampTermino())}"></td>
+								<td th:text="${#numbers.formatInteger(status.getTotalDeDocumentos(), 1, 'POINT')}"></td>
+								<td th:text="${#numbers.formatInteger(status.getDocumentosLidos(), 1, 'POINT')}"></td>
+								<td th:text="${#numbers.formatInteger(status.getDocumentosIndexados(), 1, 'POINT')}"></td>
+								<td th:text="${status.getParametrosExecucao()}"></td>
+								<td th:with="idModal=${'modalErros-'+dadosLinha.index}">
+									<th:block th:if="${not status.getErros().isEmpty()}">
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-outline-danger" data-toggle="modal" th:attr="data-target='#'+${idModal}">
+											Ver erros
+										</button>
+
+										<!-- Modal -->
+										<div class="modal fade" th:id="${idModal}" tabindex="-1" role="dialog" aria-labelledby="tituloModalErros" aria-hidden="true">
+											<div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="tituloModalErros">
+															Exceções do job <th:block th:text="${status.getNomeJob()}">nome do job</th:block>
+														</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<th:block th:each="erro : ${status.getErros()}">
+															<p class="font-weight-bold" th:text="${erro.getMensagemErro()}"></p>
+															<p class="stackTraceErro" th:text="${erro.getStackTrace()}"></p>
+															<hr/>
+														</th:block>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</th:block>
+
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+	</th:block>
+	<th:block layout:fragment="scripts">
+	</th:block>
+</body>
+</html>

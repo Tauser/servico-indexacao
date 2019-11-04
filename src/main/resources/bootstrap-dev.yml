@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      uri: https://sepaptes.camara.gov.br/servidor-config
+      username: servico-indexacao
+      password: 12345678
+

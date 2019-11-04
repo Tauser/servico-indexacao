@@ -1,0 +1,8 @@
+{
+  "_id": "sem-parametros",
+  "expressaoCron": "0 0 8-17 * * MON-FRI",
+  "nomeDoIndice": "indice-1",
+  "nomeDoJob": null,
+  "parametros": {
+  }
+}

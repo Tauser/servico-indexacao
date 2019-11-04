@@ -1,0 +1,10 @@
+{
+  "_id": "valor-multiplo",
+  "expressaoCron": "0 0 9-17 * * MON-FRI",
+  "nomeDoIndice": null,
+  "nomeDoJob": "teste-2",
+  "parametros": {
+    "simples": ["1"],
+    "multiplo": ["a", "b", "c"]
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}" lang="pt-BR">
+<head>
+	<title>Agendamentos</title>
+</head>
+<body>
+	<th:block layout:fragment="conteudo">		
+		<div class="row">
+			<div class="col" th:if="${#lists.isEmpty(agendamentos)}">
+				<h5>Sem agendamentos.</h5>
+			</div>
+			
+			<div class="col" th:unless="${#lists.isEmpty(agendamentos)}"> 
+				<div class="table-responsive">
+					<!--/*@thymesVar id="agendamentos" type="java.util.List<br.leg.camara.indexacao.aplicacao.agendamento.Agendamento>"*/-->
+					<table class="table table-striped">
+						<caption>Agendamentos configurados</caption>
+						<thead>
+							<tr>
+								<th>Nome do job</th>
+								<th>Índice</th>
+								<th>Agendamento</th>
+								<th>Parâmetros</th>
+								<th>Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="agendamento : ${agendamentos}">
+								<td th:text="${agendamento.nomeDoJob}"></td>
+								<td th:text="${agendamento.nomeDoIndice}"></td>
+								<td th:text="${agendamento.expressaoCron}"></td>
+								<td th:text="${agendamento.parametros}"></td>
+								<td>
+									<form method="post" th:action="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).excluirAgendamento(agendamento.id)}}">
+										<button type="submit" class="btn btn-danger">Excluir</button>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+	<th:block layout:fragment="scripts">
+	</th:block>
+</body>
+</html>

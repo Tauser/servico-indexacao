@@ -1,0 +1,100 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"normalizer": {
+				"my_normalizer": {
+					"type": "custom",
+					"filter": ["lowercase"]
+				}
+			},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+    			"my_stop": {
+                	"type":       "stop",
+                	"stopwords":  "_brazilian_"
+            	}
+			}
+		}
+	},
+	"mappings": {
+		"normas": {
+			"properties": {
+				"temaPortal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+			            "keyword": { 
+			              "type":  "keyword"
+			            }
+					}
+				},
+				"temaOriginal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+			            "keyword": { 
+			              "type":  "keyword"
+			            }
+					}
+				},
+				"tema": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+			            "keyword": { 
+			              "type":  "keyword"
+			            }
+					}
+				},
+				"texIndexacao": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"textoAtualizadoHtml": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"textos.texEmentaHTML": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"keyword": {
+							"type": "keyword"
+						},
+						"normalize": {
+							"type": "keyword",
+							"normalizer": "my_normalizer"
+						}
+					}
+				},
+				"textos.texNormaHTML": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"keyword": {
+							"type": "keyword"
+						},
+						"normalize": {
+							"type": "keyword",
+							"normalizer": "my_normalizer"
+						}
+					}
+				}
+			}
+		}
+	}
+}

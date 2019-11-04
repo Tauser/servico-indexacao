@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}" lang="pt-BR">
+<head>
+	<title>Exclusão de documento</title>
+</head>
+<body>
+	<th:block layout:fragment="conteudo">
+		<!--/*@thymesVar id="indice" type="java.lang.String"*/-->
+		<div class="row">
+			<div class="col-sm-6">
+				<h2>Exclusão de documento do índice "<th:block th:text="${indice}">índice</th:block>"</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<form method="post" th:action="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).excluirDocumento(indice)}}">
+
+					<div class="form-group">
+						<input type="text" id="idDocumento" name="idDocumento" class="form-control" placeholder="Id do documento" aria-label="Id do documento" required/>
+					</div>
+
+					<a th:href="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).LISTAR_INDICES}}" class="btn btn-secondary">Cancelar</a>
+					<button type="submit" class="btn btn-danger">Excluir documento</button>
+				</form>
+			</div>
+		</div>
+	</th:block>
+
+</body>
+</html>

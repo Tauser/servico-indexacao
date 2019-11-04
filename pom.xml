@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>br.leg.camara</groupId>
+	<artifactId>servico-indexacao</artifactId>
+	<version>1.1.77</version>
+	<packaging>jar</packaging>
+
+	<name>servico-indexacao</name>
+	<description>Serviço de indexação</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Edgware.SR2</spring-cloud.version>
+		<keycloak.version>3.3.0.Final</keycloak.version>
+	</properties>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.10.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<dependencies>
+		<!-- api a ser implementada por cada job de indexação -->
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-cliente</artifactId>
+			<version>1.10.1</version>
+		</dependency>
+		
+		<!-- comentar jobs de indexação caso eles fiquem numa pasta lib, fora do
+			jar da aplicação SpringBoot -->
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-noticias</artifactId>
+			<version>1.0.31</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>br.leg.camara.indexacao</groupId>
+		  <artifactId>indexacao-programa</artifactId>
+		  <version>1.0.11</version>
+		</dependency>
+		
+		<dependency>
+		  <groupId>br.leg.camara.indexacao</groupId>
+		  <artifactId>indexacao-bns</artifactId>
+		  <version>1.0.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-discursos</artifactId>
+			<version>1.0.26</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-deputados</artifactId>
+			<version>1.0.7</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-legislacao</artifactId>
+			<version>1.0.34</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-pessoas</artifactId>
+			<version>1.0.15</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-servicos</artifactId>
+			<version>0.0.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-proposicoes</artifactId>
+			<version>1.3.3</version>
+		</dependency>	
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-enquetes</artifactId>
+			<version>0.0.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-bibliotecadigital</artifactId>
+			<version>0.0.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-ulysses</artifactId>
+			<version>1.0.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-sistemas</artifactId>
+			<version>0.0.4</version>
+		</dependency>	
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-questaoordem</artifactId>
+			<version>0.0.11</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>br.leg.camara.indexacao</groupId>
+			<artifactId>indexacao-radioagencia</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-spring-security-adapter</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-java8time</artifactId>
+			<version>3.0.1.RELEASE</version>
+		</dependency>
+		<!-- suporte a websockets -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>webjars-locator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>sockjs-client</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>stomp-websocket</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<!-- suporte a servidor de configuração -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!-- utilitários -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.5-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.2.1.jre8</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+		   	<groupId>mysql</groupId>
+        	<artifactId>mysql-connector-java</artifactId>
+        	<scope>runtime</scope>
+		</dependency>
+				
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- integração com ElasticSearch -->
+		<dependency>
+			<groupId>io.searchbox</groupId>
+			<artifactId>jest</artifactId>
+			<version>6.3.0</version>
+		</dependency>
+
+		<!-- TODO adicionado temporariamente para que carregamento do SpringBoot
+			não gere erro. Se possível, tirar -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- MongoDB em memória -->
+		<dependency>
+			<groupId>com.github.fakemongo</groupId>
+			<artifactId>fongo</artifactId>
+			<version>2.1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.keycloak.bom</groupId>
+				<artifactId>keycloak-adapter-bom</artifactId>
+				<version>3.3.0.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<finalName>servico-indexacao</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- necessário para permitir pasta lib externa ao jar com java -Dloader.path="lib/*"
+						-jar aplicacao.jar -->
+					<layout>ZIP</layout>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

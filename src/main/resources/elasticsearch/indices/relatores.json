@@ -1,0 +1,15 @@
+{
+	"mappings": {
+		"relatores": {
+			"properties": {
+				"nomeRelator": {
+					"type": "text",
+                    "fielddata": true
+				},
+				"datApresentacaoParecer": {
+					"type": "date"
+				}
+			}
+		}
+	}
+}

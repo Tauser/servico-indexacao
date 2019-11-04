@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}" lang="pt-BR">
+<head>
+	<title>Índices</title>
+</head>
+<body>
+	<th:block layout:fragment="conteudo">		
+		<div class="row justify-content-start indices-grid">
+			<!--/*@thymesVar id="indices" type="java.util.List<java.lang.String>"*/-->
+			<th:block th:each="indice: ${indices}">
+				<div class="col-sm-4 job-painel">
+					<div class="card">
+						<h3 class="card-header">[[${indice}]]</h3>
+						<div class="card-body">
+
+							<div class="dropdown">
+								<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownExclusao" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+									Excluir
+									<span class="caret"></span>
+								</button>
+
+								<ul class="dropdown-menu" aria-labelledby="dropdownExclusao">
+									<li>
+										<form method="post" th:action="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).excluirIndice(indice)}}">
+											<button type="submit" class="btn btn-outline-danger">Índice</button>
+										</form>
+									</li>
+									<li>
+										<a th:href="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).excluirDocumento(indice)}}" class="btn btn-outline-danger">
+											Documento específico
+										</a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div th:if="${indiceStat.count % 3 == 0 && not indiceStat.last}" class="w-100"></div>
+			</th:block>					
+		</div>
+	</th:block>
+	<th:block layout:fragment="scripts">
+	</th:block>
+</body>
+</html>

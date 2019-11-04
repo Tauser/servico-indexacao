@@ -1,0 +1,37 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding"
+					]
+				}
+			},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				}
+			}
+		}
+	},
+	"mappings": {
+		"autores": {
+			"properties": {
+				"nome": {
+					"type": "text",
+                    "analyzer": "my_analyzer",
+                    "fields": {
+						"keyword": {
+							"type": "keyword"
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      fail-fast: true
+      uri: https://configs-sepop.camara.gov.br/servidor-config
+      username: servico-indexacao
+

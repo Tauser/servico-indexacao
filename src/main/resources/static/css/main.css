@@ -1,0 +1,42 @@
+.job-painel{
+	margin-bottom: 25px;
+}
+
+.status-job, .status-indice{
+	font-size: small;
+	/* margin-bottom: 10px; */
+}
+
+.table-job td {
+    vertical-align: inherit;
+}
+
+td.job-name {
+    width: 40%;
+}
+
+td.job-message {
+    width: 45%;
+}
+
+.status-conexao{
+	margin-bottom: 10px;
+	font-style: italic;
+	font-size: small;
+}
+
+nav.navbar{
+	margin-bottom: 20px;
+}
+
+.agendamento legend{
+	font-size: 1rem;
+}
+
+.agendamento .btnExclusaoParametro{
+	margin-left: 10px;	
+}
+
+.stackTraceErro {
+	word-wrap: break-word;
+}

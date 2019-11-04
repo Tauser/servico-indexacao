@@ -1,0 +1,24 @@
+{
+  "_id": "2",
+  "nomeJob": "job-teste",
+  "parametros": {
+    "id": ["1"]
+  },
+  "totalDeDocumentos": 10,
+  "documentosIndexados": 5,
+  "documentosLidos": 10,
+  "timestampInicio": {
+    "$date": "2018-01-05T12:25:00.000Z"
+  },
+  "timestampTermino": {
+    "$date": "2018-01-05T12:25:10.000Z"
+  },
+  "mensagem": "Erro na execução",
+  "erros": [
+    {
+      "classeDaExcecao": "java.lang.RuntimeException",
+      "mensagemErro": "Erro qualquer",
+      "stackTrace": "java.lang.RuntimeException: Erro qualquer"
+    }
+  ]
+}

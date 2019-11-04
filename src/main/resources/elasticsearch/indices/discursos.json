@@ -1,0 +1,69 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"normalizer": {
+				"my_normalizer": {
+					"type": "custom",
+					"filter": ["lowercase"]
+				}
+			},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+        			"my_stop": {
+                    	"type":       "stop",
+                    	"stopwords":  "_brazilian_"
+                	}
+			}
+		}
+	},
+	"mappings": {
+		"discursos": {
+			"properties": {
+				"temaPortal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"raw": {
+							"type": "keyword"
+						}
+					}
+				},
+				"temaOriginal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"raw": {
+							"type": "keyword"
+						}
+					}
+				},
+				"palavrasChave": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"sumario": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"transcricao": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				}
+			}
+		}
+	}
+}

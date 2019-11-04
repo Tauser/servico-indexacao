@@ -1,0 +1,79 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"normalizer": {
+        		"my_normalizer": {
+          			"type": "custom",
+          			"filter": ["lowercase"]
+        		}
+      		},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+				"my_stop": {
+					"type": "stop",
+					"stopwords": "_brazilian_"
+				}
+			}
+		}
+	},
+	"mappings": {
+		"questaoordem": {
+			"properties": {
+				"dataOrdenacao": {
+					"type": "date"
+				},
+				"autor": {
+		            "type": "text",
+		            "analyzer": "my_analyzer",
+		            "fields": {
+		                "keyword": {
+		                    "type": "keyword"
+		                },
+		                "normalize": {
+		                    "type": "keyword",
+		                    "normalizer": "my_normalizer"
+		                }
+		            }
+		        },
+				"presidente": {
+		            "type": "text",
+		            "analyzer": "my_analyzer",
+		            "fields": {
+		                "keyword": {
+		                    "type": "keyword"
+		                },
+		                "normalize": {
+		                    "type": "keyword",
+		                    "normalizer": "my_normalizer"
+		                }
+		            }
+		        },
+				"normas": {
+					"properties": {
+						"norma": {
+							"type": "text",
+							"analyzer": "my_analyzer"
+						},
+						"dataInicioVigenciaNorma": {
+							"type": "date"
+						}
+					}
+				}
+			}
+		}
+	}
+}

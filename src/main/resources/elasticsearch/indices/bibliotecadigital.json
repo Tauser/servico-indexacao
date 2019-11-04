@@ -1,0 +1,42 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+        			"my_stop": {
+                    	"type":       "stop",
+                    	"stopwords":  "_brazilian_"
+                	}
+			}
+		}
+	},
+	"mappings": {
+		"bibliotecadigital": {
+			"properties": {
+				"temaPortal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"raw": {
+							"type": "keyword"
+						}
+					}
+				}
+			}
+		}
+	}
+}

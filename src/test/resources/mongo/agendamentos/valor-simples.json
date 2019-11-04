@@ -1,0 +1,9 @@
+{
+  "_id": "valor-simples",
+  "expressaoCron": "0 0 9-17 * * MON-FRI",
+  "nomeDoIndice": null,
+  "nomeDoJob": "teste",
+  "parametros": {
+    "id": ["5"]
+  }
+}

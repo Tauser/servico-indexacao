@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}" lang="pt-BR">
+<head>
+<title>Novo Agendamento</title>
+</head>
+<body>
+	<th:block layout:fragment="conteudo">
+		<div class="row">
+			<div class="col-sm-6 agendamento">
+				<!--/*@thymesVar id="agendamento" type="br.leg.camara.indexacao.adaptadores.mvc.FormularioAgendamento"*/-->
+				<form method="post" th:action="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).NOVO_AGENDAMENTO}}" th:object="${agendamento}">
+
+					<fieldset aria-describedby="helpJobOuIndice">
+						<div class="form-group form-row">
+							<div class="col">
+								<label for="nomeDoJob">Jobs</label>
+								<select name="nomeDoJob" id="nomeDoJob" th:field="*{nomeDoJob}" class="form-control" aria-label="Job">
+									<option th:value="${null}"></option>
+									<!--/*@thymesVar id="nomesDosJobs" type="java.util.List<java.lang.String>"*/-->
+									<option th:each="nomeJob : ${nomesDosJobs}" th:value="${nomeJob}" th:text="${nomeJob}">Job 1</option>
+								</select>
+								<!--<input type="text" id="nomeDoJob" th:field="*{nomeDoJob}" class="form-control">-->
+							</div>
+
+							<div class="col">
+								<label for="nomeDoIndice">Índices</label>
+								<select name="nomeDoIndice" id="nomeDoIndice" th:field="*{nomeDoIndice}" class="form-control" aria-label="Índice">
+									<option th:value="${null}"></option>
+									<!--/*@thymesVar id="nomesDosIndices" type="java.util.List<java.lang.String>"*/-->
+									<option th:each="nomeIndice : ${nomesDosIndices}" th:value="${nomeIndice}" th:text="${nomeIndice}">Índice 1</option>
+								</select>
+								<!--<input type="text" id="nomeDoIndice" th:field="*{nomeDoIndice}" class="form-control">-->
+							</div>
+						</div>
+					</fieldset>
+
+					<div class="form-group form-row">
+						<div class="col">
+							<label for="expressaoCron">Expressão cron do agendamento</label>
+							<input type="text" id="expressaoCron" th:field="*{expressaoCron}" class="form-control" placeholder="0 0 9-17 * * MON-FRI" aria-describedby="helpCron" aria-label="Expressão cron do agendamento"
+								required>
+							<small id="helpCron" class="form-text text-muted">Para mais detalhes sobre a sintaxe, consulte a <a
+									href="https://docs.spring.io/autorepo/docs/spring/4.2.x/javadoc-api/org/springframework/scheduling/support/CronSequenceGenerator.html" target="_blank">documentação do Spring</a>
+							</small>
+						</div>
+					</div>
+
+					<div class="form-group form-row"></div>
+
+					<fieldset>
+						<legend>Parâmetros opcionais</legend>
+						<div class="form-group form-row">
+							<div class="col">
+								<input type="text" id="nomeParametro" aria-label="Nome do parâmetro" placeholder="Nome" class="form-control">
+							</div>
+							<div class="col">
+								<input type="text" id="valorParametro" aria-label="Valor do parâmetro" placeholder="Valor" aria-describedby="helpParam" class="form-control">
+								<small id="helpParam" class="form-text text-muted">[[${'Valores separados por "' + T(br.leg.camara.indexacao.adaptadores.mvc.FormularioAgendamento).SEPARADOR} + '"']] </small>
+							</div>
+							<div class="col">
+								<button id="btnAdicionarParametro" type="button" class="btn btn-outline-secondary">Adicionar</button>
+							</div>
+						</div>
+					</fieldset>
+					
+					<div class="form-group form-row">
+						<ul id="listaParametros" class="list-group"></ul>
+					</div>
+
+					<a th:href="@{${T(br.leg.camara.indexacao.adaptadores.mvc.Urls).LISTAR_AGENDAMENTOS}}" class="btn btn-secondary">Cancelar</a>
+					<button type="submit" class="btn btn-primary">Salvar</button>
+
+					<div id="inputsParametros"></div>
+				</form>
+			</div>
+		</div>
+
+
+	</th:block>
+	<th:block layout:fragment="scripts">
+		<script type="application/javascript">																	
+			function renderizarParametros() {
+				const listaParametros = $('#listaParametros');
+				listaParametros.html('');
+				$('#inputsParametros > input').each((indice, elemento) => {
+                    const campo = $(elemento);
+                    let nome = campo.prop('name');
+                    nome = nome.substring(nome.indexOf('[') + 1, nome.lastIndexOf(']'));
+					const valores = campo.prop('value');
+				    listaParametros.append(
+				        `<li class="list-group-item">${nome} : ${valores} <button type="button" class="close float-right btnExclusaoParametro" data-indice="${indice}" aria-label="Close"> <span aria-hidden="true">&times;</span></button></li>`);				    				   
+				});
+				listaParametros.find('.btnExclusaoParametro').click((evento) => {
+				    const btn = $(evento.target).parent();				    
+				    const indice = btn.data('indice');				    
+				    const input = $(`#inputsParametros > input:nth-child(${indice + 1})`);
+                    input.remove();
+                    renderizarParametros();
+				})
+			}
+
+			$(() => {
+				$('#btnAdicionarParametro').click(() => {
+                    const campoNome = $('#nomeParametro');
+                    const campoValor = $('#valorParametro');
+                    
+                    if(campoNome.val() && campoValor.val()){
+						const divParametros = $('#inputsParametros');
+	
+						divParametros.append(`<input type="hidden" name="parametros[${campoNome.val()}]" value="${campoValor.val()}">`);
+	
+						campoNome.val('');
+						campoValor.val('');
+						campoNome.focus();
+						renderizarParametros();
+                    }
+                });
+			});				
+		</script>
+	</th:block>
+</body>
+</html>

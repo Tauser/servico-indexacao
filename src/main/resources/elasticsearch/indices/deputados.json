@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "my_stop"
+          ]
+        }
+      },
+			"filter": {				
+        			"my_stop": {
+                    	"type":       "stop",
+                    	"stopwords":  "_brazilian_"
+                	}
+			}
+    }
+  },
+  "mappings": {
+    "deputados": {
+      "properties": {
+        "nome": {
+          "type": "text",
+          "analyzer": "my_analyzer",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"tokenizer": "standard",
+					"filter": [
+						"lowercase",
+						"stemmer_plural_portugues",
+						"asciifolding",
+						"my_stop"
+					]
+				}
+			},
+			"filter": {
+				"stemmer_plural_portugues": {
+					"type": "stemmer",
+					"name": "minimal_portuguese"
+				},
+        			"my_stop": {
+                    	"type":       "stop",
+                    	"stopwords":  "_brazilian_"
+                	}
+			}
+		}
+	},
+	"mappings": {
+		"noticias": {
+			"properties": {
+				"materia": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"resumo": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"titulo": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"rodape": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"tags": {
+					"type": "text",
+					"analyzer": "my_analyzer"
+				},
+				"deputados.nomeDeputado": {
+					"type": "keyword"
+				},
+				"temaPortal": {
+					"type": "text",
+					"analyzer": "my_analyzer",
+					"fields": {
+						"raw": {
+							"type": "keyword"
+						}
+					}
+				}
+			}
+		}
+	}
+}

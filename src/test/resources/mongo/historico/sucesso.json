@@ -1,0 +1,16 @@
+{
+  "_id": "1",
+  "nomeJob": "job-teste",
+  "parametros": {},
+  "totalDeDocumentos": 10,
+  "documentosIndexados": 10,
+  "documentosLidos": 10,
+  "timestampInicio": {
+    "$date": "2018-01-01T12:25:00.000Z"
+  },
+  "timestampTermino": {
+    "$date": "2018-01-01T12:25:10.000Z"
+  },
+  "mensagem": null,
+  "erros": []
+}

@@ -1,0 +1,27 @@
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xml:lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Painel Usuário Logado</title>
+</head>
+<body>
+	<th:block th:fragment="painel">
+		<!--/*@thymesVar id="mensagemInformacao" type="java.lang.String"*/-->
+		<div class="alert alert-info" th:if="${mensagemInformacao != null}">
+			<p role="alert" th:text="${mensagemInformacao}">informação</p>
+		</div>
+		<!--/*@thymesVar id="mensagemSucesso" type="java.lang.String"*/-->
+		<div class="alert alert-success" th:if="${mensagemSucesso != null}">
+			<p role="alert" th:text="${mensagemSucesso}">informação</p>
+		</div>
+		<!--/*@thymesVar id="mensagemAlerta" type="java.lang.String"*/-->
+		<div class="alert alert-warning" th:if="${mensagemAlerta != null}">
+			<p role="alert" th:text="${mensagemAlerta}">informação</p>
+		</div>
+		<!--/*@thymesVar id="mensagemErro" type="java.lang.String"*/-->
+		<div class="alert alert-danger" th:if="${mensagemErro != null}">
+			<p role="alert" th:text="${mensagemErro}">informação</p>
+		</div>
+	</th:block>
+</body>
+</html>

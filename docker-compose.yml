@@ -1,0 +1,31 @@
+version: '2'
+# arquivo com dependências do projeto a serem usadas durante o desenvolvimento
+# As dependências neste arquivo devem estar compatíveis com as dependências dos ambientes
+# para evitar o problema "funciona na minha máquina"
+
+services:
+  mongo:
+    image: dockerhub.camara.gov.br/sesap/mongo:mongodb-0.0.5
+    environment:
+      - MONGODB_APPLICATION_DATABASE=servico-indexacao
+      - MONGODB_APPLICATION_USER=usr_servico_indexacao
+      - MONGODB_APPLICATION_PASS=123456789
+      - AUTH=yes
+      - MONGODB_ADMIN_USER=root
+      - MONGODB_ADMIN_PASS=password
+    ports:
+      - "27018:27017"
+
+  elastic-search:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - dados-elastic-search:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+volumes:
+  dados-elastic-search:
+    external: true
